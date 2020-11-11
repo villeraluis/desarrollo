@@ -1,22 +1,13 @@
 <?php
-class Conectar{
+class Conexionbd{
   
 
-    public $pdo;
-
-
-    public function __construct(){
-        try
-        {
-            $this->pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
-        }
-        catch(Exception $e)
-        {
-            die($e->getMessage());
-        }
-    
+    public static function conexion(){
+        $conexion=new mysqli("localhost", "root", "", "api");
+        $conexion->query("SET NAMES 'utf8'");
+        return $conexion;
     }
+
 
 }
 ?>
