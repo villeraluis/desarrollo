@@ -5,18 +5,19 @@ require ("../modelo/modeloEstudiantes.php");
 
 class controladorEstudiante {
 
-    private $estudiante;
-    
+   
 	
-function __construct(){   
+function __construct(){ 
+    
 	}
 
 
 
-function listarTodos(){    
-   $per=new modeloEstudiantes();
-   $datos=$per->listarEstudiantes();
-  require ("../vistas/vistasEstudiante/vistaEstudiante.php");
+function listarTodos(){ 
+   $estudiantes=new modeloEstudiantes();    
+   
+   $datos=$estudiantes->listarEstudiantes();
+  require ("../vistas/vistasEstudiante/vistaTodosEstudiante.php");
 }
 
 function listarUno(){    
