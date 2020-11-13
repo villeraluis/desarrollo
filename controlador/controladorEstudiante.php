@@ -20,10 +20,11 @@ function listarTodos(){
   require ("../vistas/vistasEstudiante/vistaTodosEstudiante.php");
 }
 
-function listarUno(){    
-    $per=new modeloEstudiantes();
-    $datos=$per->listarUnEstudiante($identificacion);
+function listarUno(){
+       
+   $per=new modeloEstudiantes();
    require ("../vistas/vistaEstudiante.php");
+    $per->listarUnEstudiante($identificacion);
  }
 
  function añadir(){    
