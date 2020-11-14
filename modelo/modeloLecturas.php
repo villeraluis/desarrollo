@@ -19,12 +19,11 @@ class modeloLecturas{
         return $this->lectura;
     }
 
-    public function añadirLectura($identificacion,$nombre,$correo,$contraseña){
-        $consulta=$this->db->query("select * from lecturas");
-        while($filas=$consulta->fetch_assoc()){
-            $this->lectura[]=$filas;
-        }
-        return $this->lectura;
+    public function añadirLectura($titulo,$contenido,$fecha){
+    
+    $this->db->query("INSERT INTO lecturas VALUES (null,'$titulo','$contenido','$fecha',1)");
+        
+        
     }
 
 

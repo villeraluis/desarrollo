@@ -26,6 +26,24 @@ function crearLectura(){
    // $per->añadirLectura($identificacion,$nombre,$correo,$contraseña);
    
  }
+
+
+ function nuevaLectura($titulo,$contenido,$fecha){    
+    $per=new modeloLecturas();
+     if (strlen ( $titulo)>0 && strlen ( $contenido)>0 ){
+        $per->añadirLectura($titulo,$contenido,$fecha);
+        header("Location: index.php?accion=datosGuardados");
+die();
+         
+    }
+    else{
+        header("Location: index.php?accion=datosNOGuardados");
+        die();
+    }
+
+    
+   
+ }
 /*
 function listarUno(){
        

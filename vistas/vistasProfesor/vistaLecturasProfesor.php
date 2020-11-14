@@ -5,8 +5,8 @@
 
 
 
+
 <?php 
-print_r($datos);
 
 require_once 'vistas/footer.php';
 ?>
