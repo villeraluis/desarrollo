@@ -9,6 +9,7 @@
     <script src="vistas/js/popper.min.js" ></script>
     <script src="vistas/js/bootstrap.min.js" ></script>
     <script src="vistas/complementos/ckeditor/ckeditor.js"></script>
+    <script src="vistas/js/jsPropio/preguntas.js" ></script>
      
     
   </body>

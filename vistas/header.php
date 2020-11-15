@@ -7,7 +7,7 @@
      
     <!-- Bootstrap CSS -->
     
-      <script src="vistas/js/jsPropio/preguntas.js" ></script>
+      
       <link rel="stylesheet" href="vistas/css/bootstrap.min.css" >
       
      

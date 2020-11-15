@@ -34,6 +34,13 @@ if( isset($_GET["accion"])){
         require ("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
        
     }
+
+    if($_GET["accion"] == "guardarPregunta"){
+
+       print_r($_POST);
+       require ("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
+       
+    }
     
 
 } else {
