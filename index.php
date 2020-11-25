@@ -1,22 +1,42 @@
 <?php
+session_start();  
 
 
 if( isset($_GET["accion"])){
     require_once 'controlador/controladorLecturas.php';
-    $controlador=new controladorLecturas();
+    require_once 'controlador/controladorUsuarios.php';
+    require_once 'controlador/controladorLogin.php';
+    $controladorLectura=new controladorLecturas();
+    $controladorUsuario=new controladorUsuarios();
+    $controladorLogin=new controladorLogin();
 
-    if($_GET["accion"] == "lecturas"){
-        $controlador->listarTodos();
+    //creando vista lecturas profecor
+    if($_GET["accion"] == "lecturas" && $_GET["usuario"] == 1){
+        $controladorLectura->listarTodos();
     }
     if($_GET["accion"] == "crearLectura"){
-        $controlador->crearLectura();
+        $controladorLectura->crearLectura();
     }
+
     if($_GET["accion"] == "guardarLectura"){
         $titulo=$_POST['titulo'];
         $contenido=$_POST['contenido'];
         $fecha=$_POST['fecha'];
-        $controlador->nuevaLectura($titulo,$contenido,$fecha);
+        $controladorLectura->nuevaLectura($titulo,$contenido,$fecha);
     }
+
+    //creando la vista lecturas para estudiante
+    if($_GET["accion"] == "lecturas" && $_GET["usuario"] == 2){
+        $controladorLectura->listarTodos();
+    }
+
+   
+    //guardando estudiante
+    if($_GET["accion"] == "guardarEstudiante"){
+       
+        $controladorUsuario->agregaUsuario($_POST);
+    }
+    
     if($_GET["accion"] == "datosGuardados"){
 
         require ("vistas/vistasProfesor/vistaLecturasProfesor.php");
@@ -41,12 +61,39 @@ if( isset($_GET["accion"])){
        require ("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
        
     }
+
+    if($_GET["accion"] == "registrarEstudiante"){
+
+
+        require ("vistas/vistasEstudiante/vistaRegistrarEstudiante.php");
+        
+     }
+
+     if($_GET["accion"] == "login"){
+
+
+        require ("vistas/autenticacion/login.php");
+        
+     }
+
+ ///
+     if($_GET["accion"] == "listarLecturas"){
+
+
+       $controlador->listarTodos();
+     }
+
+     if($_GET["accion"] == "ingresar"){
+        $varP=($_POST);
+        $controladorLogin->ingresar($varP);
+      }
     
 
 } else {
     require_once 'vistas/vistaInicio.php';
     
 }
+
 
 
 ?>

@@ -28,7 +28,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="index.php?accion=lecturas">Lecturas</span></a>
+        <a class="nav-link" href="index.php?accion=lecturas&usuario=1">Lecturas</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="index.php?accion=preguntas">Preguntas</a>
@@ -42,13 +42,17 @@
     <form class="form-inline my-2 my-lg-0">
       
       <div class="dropdown ">
+   <a class="btn btn-secondary " >
+   <?php echo $_SESSION['correoUsuario'] ?>
+  </a>     
   <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Registro
   </a>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="index.php?accion=registrarse">Registrarse</a>
-    <a class="dropdown-item" href="index.php?accion=estudiante">Ingresar Como estudiante</a>
-    <a class="dropdown-item" href="index.php?accion=profesor">Ingresar Como Profesor</a>
+    <a class="dropdown-item" href="index.php?accion=registrarEstudiante">Registrarse</a>
+    <a class="dropdown-item" href="index.php?accion=login">Ingresar</a>
+    <label class="dropdown-item" ><?php echo $_SESSION['correoUsuario'] ?></label>
+    
   </div>
 </div>
     </form>

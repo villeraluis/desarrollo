@@ -17,6 +17,7 @@ function listarTodos(){
    $Lecturas=new modeloLecturas();    
    
    $datos=$Lecturas->listarLecturas();
+   
    require ("vistas/vistasProfesor/vistaLecturasProfesor.php");
 
 }
