@@ -19,9 +19,11 @@ function ingresar($post){
     $resp=$valida->validacion($post);
     
     if (array_key_exists('correoUsuario', $resp)) {
-        $_SESSION['correoUsuario']  = $resp['correoUsuario'];
+        $_SESSION['correo']  = $resp['correoUsuario'];
         $_SESSION['rol']  = $resp['rol'];
-        $_SESSION['idusuarios']  = $resp['idusuarios'];
+        $_SESSION['id']  = $resp['idusuarios'];
+        $_SESSION['nombre']  = $resp['nombreUsuario'];
+
 
        
         
@@ -30,7 +32,7 @@ function ingresar($post){
     }
     
 
-    require 'vistas/vistasProfesor/vistaLecturasProfesor.php';
+    require 'vistas/vistaInicio.php';
    
 
 }

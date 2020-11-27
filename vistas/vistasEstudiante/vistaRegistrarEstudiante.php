@@ -2,7 +2,7 @@
 <div class="container-fluid col-6">
 
 
-    <form class="mt-4" action="index.php?accion=guardarEstudiante" method="post">
+    <form class="mt-4" action="index.php?accion=enviarCorreo" method="post">
 
         <div class="text-center">
         <label for="" class="h4 pt-4">Registro Estudiantes Por Primera Vez</label>

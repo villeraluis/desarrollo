@@ -64,12 +64,16 @@ class controladorUsuarios
       }
    }
 
+
+
+   ///
    function eliminar()
    {
       $per = new modeloUsuarios();
       require("../vistas/vistaEstudiante.php");
       $per->eliminarUsuario($identificacion);
    }
+
 
    function modificar()
    {

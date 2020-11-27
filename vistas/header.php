@@ -24,9 +24,11 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
     <ul class="navbar-nav mr-auto">
+    <?php if(!empty($_SESSION)){?>
       <li class="nav-item">
         <a class="nav-link" href="index.php?accion=lecturas&usuario=1">Lecturas</span></a>
       </li>
@@ -42,18 +44,27 @@
     <form class="form-inline my-2 my-lg-0">
       
       <div class="dropdown ">
-   <a class="btn btn-secondary " >
-   <?php echo $_SESSION['correoUsuario'] ?>
-  </a>     
+     
+   <a class="btn btn-secondary dropdown-toggle "  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo $_SESSION['correo'] ?></a>
+   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+    
+    <a class="dropdown-item" href="index.php?accion=salir">Salir</a>
+  </div>
+      <?php }else{?>
+        
+        </ul>
+
   <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Registro
   </a>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="index.php?accion=registrarEstudiante">Registrarse</a>
     <a class="dropdown-item" href="index.php?accion=login">Ingresar</a>
-    <label class="dropdown-item" ><?php echo $_SESSION['correoUsuario'] ?></label>
+    
     
   </div>
+
+      <?php }?>
 </div>
     </form>
   </div>
