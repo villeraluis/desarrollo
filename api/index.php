@@ -1,5 +1,5 @@
 <?php
-
+/*
 include_once("..modelo/conexion/conexion.php");
 
 
@@ -265,3 +265,4 @@ function obtenerParams($input)
        return $sentencia;
   }
 
+*/
