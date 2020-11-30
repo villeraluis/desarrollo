@@ -34,14 +34,14 @@ class controladorUsuarios
    function agregaUsuario($pos)
    {
 
-      $identificacion = $pos['identificacion'];
+      $identificacion = $pos['id'];
       $nombre = $pos['nombres'];
       $apellido = $pos['apellidos'];
       $grado = $pos['grado'];
       $correo = $pos['correo'];
-      $contraseña = $pos['contraseña'];
-      $codigo = '123erer';
-      $rol = 1;
+      $contraseña = $pos['clave'];
+      $codigo = $pos['codigo'];
+      $rol = $pos['rol'];
       $per = new modeloUsuarios();
 
       if (strlen($identificacion) > 0 && strlen($correo) > 0) {
@@ -56,8 +56,11 @@ class controladorUsuarios
             $grado,
             $rol
          );
-         header("Location: index.php?accion=datosGuardados");
-         die();
+         require_once 'controlador/controladorLogin.php';
+         $controladorLogin = new controladorLogin();
+         
+         $controladorLogin->ingresar($pos);
+        
       } else {
          header("Location: index.php?accion=datosNOGuardados");
          die();
@@ -67,7 +70,7 @@ class controladorUsuarios
 
 
    ///
-   function eliminar()
+   function eliminar($id)
    {
       $per = new modeloUsuarios();
       require("../vistas/vistaEstudiante.php");
@@ -75,7 +78,7 @@ class controladorUsuarios
    }
 
 
-   function modificar()
+   function modificar($id)
    {
       $per = new modeloUsuarios();
       require("../vistas/vistaEstudiante.php");

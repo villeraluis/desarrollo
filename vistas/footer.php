@@ -5,7 +5,7 @@
   
   
   -->
-    <script src="vistas/js/jquery-3.5.1.slim.min.js" ></script>
+    <script src="vistas/js/jquery-3.5.1.js" ></script>
     <script src="vistas/js/popper.min.js" ></script>
     <script src="vistas/js/bootstrap.min.js" ></script>
     <script src="vistas/complementos/ckeditor/ckeditor.js"></script>

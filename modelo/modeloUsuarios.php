@@ -44,22 +44,32 @@ class modeloUsuarios
         $rol
     ) {
 
-        try {
-            $sql = "INSERT INTO usuarios VALUES (null,?,?,?,?,?,? ,?,?)";
-            $sql = $this->db->prepare($sql);
+        
+        $sentencia = $this->db->prepare("SELECT * FROM usuarios WHERE correoUsuario = ? LIMIT 1;");
+        $sentencia->execute([$correo]);
+        $numeroDeFilas = $sentencia->rowCount();
+        
+        if ($numeroDeFilas == 0){
 
-            $sql->bindParam(1, $identificacion);
-            $sql->bindParam(2, $nombre);
-            $sql->bindParam(3, $apellido);
-            $sql->bindParam(4, $correo);
-            $sql->bindParam(5, $contraseña);
-            $sql->bindParam(6, $codigoVal);
-            $sql->bindParam(7, $grado);
-            $sql->bindParam(8, $rol);
-            $sql->execute();
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+            try {
+                $sql = "INSERT INTO usuarios VALUES (null,?,?,?,?,?,? ,?,?)";
+                $sql = $this->db->prepare($sql);
+    
+                $sql->bindParam(1, $identificacion);
+                $sql->bindParam(2, $nombre);
+                $sql->bindParam(3, $apellido);
+                $sql->bindParam(4, $correo);
+                $sql->bindParam(5, $contraseña);
+                $sql->bindParam(6, $codigoVal);
+                $sql->bindParam(7, $grado);
+                $sql->bindParam(8, $rol);
+                $sql->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
         }
+
+       
     }
 
 
@@ -68,7 +78,7 @@ class modeloUsuarios
     //delete
     public function eliminarUsuario($identificacion)
     {
-        $consulta = $this->db->query("select * from estudiantes");
+        $consulta = $this->db->query("");
         while ($filas = $consulta->fetch(PDO::FETCH_ASSOC)) {
             $this->estudiante[] = $filas;
         }
@@ -80,7 +90,7 @@ class modeloUsuarios
     //update
     public function modificarUsuario($identificacion)
     {
-        $consulta = $this->db->query("select * from estudiantes");
+        $consulta = $this->db->query("");
         while ($filas = $consulta->fetch(PDO::FETCH_ASSOC)) {
             $this->estudiante[] = $filas;
         }

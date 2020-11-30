@@ -1,7 +1,6 @@
 <?php
 session_start();
-session_destroy();
-session_start();
+
 
 
 if (isset($_GET["accion"])) {
@@ -12,10 +11,19 @@ if (isset($_GET["accion"])) {
     $controladorUsuario = new controladorUsuarios();
     $controladorLogin = new controladorLogin();
 
-    //creando vista lecturas profecor
-    if ($_GET["accion"] == "lecturas" && $_GET["usuario"] == 1) {
-        $controladorLectura->listarTodos();
+###############################################################################
+    //creando vista lecturas profesor
+    if ($_GET["accion"] == "lecturas" && $_SESSION['rol']==2) {
+       
+        $controladorLectura->lecturasProfesor();
     }
+    
+    if ($_GET["accion"] == "mostrarLectura" ) {
+       
+        $controladorLectura->listarUnaLectura($_GET["id"]);
+    }
+
+
     if ($_GET["accion"] == "crearLectura") {
         $controladorLectura->crearLectura();
     }
@@ -24,48 +32,68 @@ if (isset($_GET["accion"])) {
         $titulo = $_POST['titulo'];
         $contenido = $_POST['contenido'];
         $fecha = $_POST['fecha'];
-        $controladorLectura->nuevaLectura($titulo, $contenido, $fecha);
+        $id=$_SESSION['id'];
+        $controladorLectura->nuevaLectura($titulo, $contenido, $fecha,$id);
     }
 
-    //creando la vista lecturas para estudiante
-    if ($_GET["accion"] == "lecturas" && $_GET["usuario"] == 2) {
-        $controladorLectura->listarTodos();
-    }
-
-
-    //guardando estudiante
-    if ($_GET["accion"] == "guardarEstudiante") {
-
-        $controladorUsuario->agregaUsuario($_POST);
-    }
-
-    if ($_GET["accion"] == "datosGuardados") {
-
-        require("vistas/vistasProfesor/vistaLecturasProfesor.php");
-        require_once 'vistas/alertas/alertaDatoguardado.php';
-    }
-    if ($_GET["accion"] == "datosNOGuardados") {
-
-
-        require("vistas/vistasLecturas/vistaAgregarLectura.php");
-        require_once 'vistas/alertas/alertaDatoNoGuardado.php';
-    }
-
-    if ($_GET["accion"] == "preguntas") {
+    if ($_GET["accion"] == "preguntas" && $_SESSION['rol']==2) {
 
         require("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
     }
+
 
     if ($_GET["accion"] == "guardarPregunta") {
-
-        print_r($_POST);
-        require("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
+        $controladorLectura->guardarPregunta($_POST);
+       
+        
     }
 
+###############################################
+
+    //creando la vista  y acciones de lecturas para estudiante
+    if ($_GET["accion"] == "lecturas" && $_SESSION['rol']==3) {
+        $controladorLectura->lecturaEstudiantes();
+    }
+
+
+    if ($_GET["accion"] == "preguntas"&& $_SESSION['rol']==3) {
+
+        require("vistas/vistasEstudiante/vistaPreguntasEstudiante.php");
+    }
+
+    
+    if ($_GET["accion"] == "listarPreguntasE" && $_SESSION['rol']==3) {
+
+        $controladorLectura->listarPregutaEs($_GET['id']);
+    }
+
+
+    if ($_GET["accion"] == "listarRespuestasE" && $_SESSION['rol']==3) {
+
+        $controladorLectura->listarRespuestaEs($_GET['id']);
+    }
+
+
+   
+
+
+
+    
+//carga de vista para formulario de registro estudiantes
     if ($_GET["accion"] == "registrarEstudiante") {
-
-
         require("vistas/vistasEstudiante/vistaRegistrarEstudiante.php");
+    }
+
+//carga de vista para formulario de registro profesor
+    if ($_GET["accion"] == "registrarEstudiante") {
+        require("vistas/vistasProfesor/vistaRegistrarProfesor.php");  
+    }
+
+//carga de vista para formulario de registro estudiantes
+    if ($_GET["accion"] == "registrarProfesor") {
+
+
+        require("vistas/vistasProfesor/vistaRegistrarProfesor.php");
     }
 
     if ($_GET["accion"] == "login") {
@@ -73,6 +101,46 @@ if (isset($_GET["accion"])) {
 
         require("vistas/autenticacion/login.php");
     }
+
+     //#####################################
+
+    //registro por primera vez se envia un enlace con los datos
+    // de registro encriptados al correo para virificar que es real
+    if ($_GET["accion"] == "registroPrim") {
+        
+        require 'controlador/controladorCorreo.php';
+        $contCorr=new ControladorCorreo;
+        $contCorr->enviarMail($_POST);
+    }
+
+//se recibe el enlace del corro y se desencryptan las variables para 
+//guardarlas en la base de datos
+    if ($_GET["accion"] == "autenticar") {  
+        require 'controlador/controladorCorreo.php';
+        $contCorreo=new ControladorCorreo;
+        //se define un array para guardar los datos desencrptados
+        $get= array('id'=>$contCorreo->decryptar($_GET['id']),
+        'nombres'=>$contCorreo->decryptar($_GET['nombres'])
+        ,'apellidos'=>$contCorreo->decryptar($_GET['ap']),
+        'grado'=>$contCorreo->decryptar($_GET['gr']), 
+        'correo'=>$contCorreo->decryptar($_GET['correo']),
+        'clave'=>($_GET['co']),
+        'codigo'=>$contCorreo->decryptar($_GET['cod']),
+        'rol'=>$contCorreo->decryptar($_GET['r'])
+        ) ;
+        
+        $controladorUsuario->agregaUsuario($get);
+           
+       
+    }
+
+//en caso de no guardarse los datos
+
+    if ($_GET["accion"] == "datosNOGuardados") {
+
+        require_once 'vistas/alertas/alertaDatoNoGuardado.php';
+    }
+//#########################################################
 
     ///
     if ($_GET["accion"] == "listarLecturas") {
@@ -96,13 +164,10 @@ if (isset($_GET["accion"])) {
     }
 
     if ($_GET["accion"] == "reportes") {
-        require 'vistas/email.php';
+        
     }
-
-    if ($_GET["accion"] == "enviarCorreo") {
-       
-        require_once 'controlador/controladorCorreo.php';
-    }
+   
+    
 } else {
     require 'vistas/vistaInicio.php';
 }

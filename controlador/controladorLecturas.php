@@ -16,11 +16,16 @@ function __construct(){
 function listarTodos(){ 
    $Lecturas=new modeloLecturas();    
    
-   $datos=$Lecturas->listarLecturas();
-   
+   $datos=$Lecturas->listarLecturasProfesor($_SESSION['id']);
    require ("vistas/vistasProfesor/vistaLecturasProfesor.php");
 
+   
 }
+
+
+
+///////////////////////////////
+
 function crearLectura(){    
     $per=new modeloLecturas();
     require ("vistas/vistasLecturas/vistaAgregarLectura.php");
@@ -28,11 +33,13 @@ function crearLectura(){
    
  }
 
+///////////////////////////////
 
- function nuevaLectura($titulo,$contenido,$fecha){    
+
+ function nuevaLectura($titulo,$contenido,$fecha,$id){    
     $per=new modeloLecturas();
      if (strlen ( $titulo)>0 && strlen ( $contenido)>0 ){
-        $per->añadirLectura($titulo,$contenido,$fecha);
+        $per->añadirLectura($titulo,$contenido,$fecha,$id);
         header("Location: index.php?accion=datosGuardados");
 die();
          
@@ -45,27 +52,66 @@ die();
     
    
  }
-/*
-function listarUno(){
+ 
+ //listar lecturas para el profesor
+ function lecturasProfesor(){ 
+   $Lecturas=new modeloLecturas();    
+   
+   $datos=$Lecturas->listarLecturasProfesor($_SESSION['id']);
+   //print_r($datos);
+   //exit;
+   
+   require ("vistas/vistasProfesor/vistaLecturasProfesor.php");
+
+   
+
+}
+
+
+function guardarPregunta($post){
+$lecturas=new modeloLecturas();
+
+$lecturas->guardarPregunt($post);
+require("vistas/vistasPreguntas/vistaAgregarPreguntas.php");
+
+
+}
+////////////////////////////
+
+ function lecturaEstudiantes(){
+   $Lecturas=new modeloLecturas();    
+   
+   $datos=$Lecturas->listarLecturas();
+
+   require ("vistas/vistasEstudiante/vistaLecturasEstudiante.php");
+
+ }
+
+function listarUnaLectura($id){
        
    $per=new modeloLecturas();
-   require ("../vistas/vistaLecturas.php");
-    $per->listarUnLectura($identificacion);
+   $per->listarUnaLectura($id);
+ 
  }
 
- function crearLectura(){    
-    $per=new modeloLecturas();
-    require ("../vistas/vistaLecturas.php");
-    $per->añadirLectura($identificacion,$nombre,$correo,$contraseña);
-   
+
+ function listarPregutaEs($id){
+       
+   $per=new modeloLecturas();
+   $per->listarPreguntasE($id);
+ 
  }
 
- function eliminar(){    
-    $per=new modeloLecturas();
-    require ("../vistas/vistaLecturas.php");
-    $per->eliminarLectura($identificacion);
-   
+ function listarRespuestaEs($id){
+       
+   $per=new modeloLecturas();
+   $per->listarRespuestaE($id);
+ 
  }
+/*
+ 
+
+ 
 
  function modificar(){    
     $per=new modeloLecturas();

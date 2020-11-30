@@ -2,7 +2,7 @@
 <div class="container-fluid col-6">
 
 
-    <form class="mt-4" action="index.php?accion=enviarCorreo" method="post">
+    <form class="mt-4" action="index.php?accion=registroPrim" method="post">
 
         <div class="text-center">
         <label for="" class="h4 pt-4">Registro Estudiantes Por Primera Vez</label>
@@ -37,13 +37,17 @@
 
         <div class="form-group">
             <label for="exampleInputPassword1">Contraseña</label>
-            <input name="contraseña" type="password" class="form-control" id="contraseña">
+            <input name="clave" type="password" class="form-control" id="clave">
         </div>
 
         <div class="form-group">
             <label for="exampleInputPassword1">Confirmar Contraseña</label>
-            <input name="conContraseña" type="password" class="form-control" id="conContraseña">
+            <input name="conClave" type="password" class="form-control" id="conClave">
         </div>
+
+
+        <input id="codigo" name="codigo" type="hidden" value="xm234jq">
+        <input id="rol" name="rol" type="hidden" value="3">
 
         <button type="submit" class="btn btn-primary">Registrarse</button>
         <a  href="index.php" type="button" class="btn btn-secondary">Cancelar</a>

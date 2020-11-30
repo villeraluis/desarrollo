@@ -30,7 +30,7 @@
     <ul class="navbar-nav mr-auto">
     <?php if(!empty($_SESSION)){?>
       <li class="nav-item">
-        <a class="nav-link" href="index.php?accion=lecturas&usuario=1">Lecturas</span></a>
+        <a class="nav-link" href="index.php?accion=lecturas">Lecturas</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="index.php?accion=preguntas">Preguntas</a>
